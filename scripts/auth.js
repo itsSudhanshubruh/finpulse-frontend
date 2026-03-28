@@ -1,236 +1,187 @@
 (function () {
     /**
-     * FinPulse Auth Logic
-     * Handles Real Firebase Authentication
+     * FinPulse Auth & Admin Session Logic
+     * Native Node.js / MongoDB Connected
      */
 
-    // --- FIREBASE CONFIGURATION ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyBl-TuyS_j44yLU_YaDxt3Z-By--pK-b1s",
-        authDomain: "finpluse-68f04.firebaseapp.com",
-        projectId: "finpluse-68f04",
-        storageBucket: "finpluse-68f04.firebasestorage.app",
-        messagingSenderId: "414703875046",
-        appId: "1:414703875046:web:d9314ee42f2bdbe5e21c27",
-        measurementId: "G-9M0YNZRXVD"
-    };
-
-    // Initialize Firebase
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    const auth = firebase.auth();
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-    // Elements
     const loginBtn = document.getElementById('loginBtn');
-    const authModal = document.getElementById('authModal');
-    const closeAuthModal = document.getElementById('closeAuthModal');
-    const userProfile = document.getElementById('userProfile');
-    const userNameDisplay = document.getElementById('userName');
-    const logoutBtn = document.getElementById('logoutBtn');
+    const loginOverlay = document.getElementById('loginOverlay');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const exactLoginForm = document.getElementById('exact-login-form');
+    let isSignupMode = false;
 
-    const tabLogin = document.getElementById('tab-login');
-    const tabSignup = document.getElementById('tab-signup');
-    const loginSection = document.getElementById('login-section');
-    const signupSection = document.getElementById('signup-section');
-    const phoneSection = document.getElementById('phone-section');
-
-    const phoneLoginTrigger = document.getElementById('phone-login-trigger');
-    const backToLogin = document.getElementById('back-to-login');
-    const phoneAuthForm = document.getElementById('phone-auth-form');
-    const otpVerifyForm = document.getElementById('otp-verify-form');
-
-    // UI Logic ---
-
-    // Open Modal
-    if (loginBtn) {
+    // Open/Close Modal Listeners
+    if (loginBtn && loginOverlay && !localStorage.getItem('finpulse_user')) {
         loginBtn.addEventListener('click', () => {
-            authModal.classList.remove('hidden');
+            loginOverlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            // Render reCAPTCHA if not already rendered
-            if (window.recaptchaVerifier) {
-                window.recaptchaVerifier.render().catch(console.error);
-            }
+            if (window.lucide) window.lucide.createIcons();
         });
     }
 
-    // Close Modal
-    const closeModal = () => {
-        authModal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
+    if (closeLoginBtn && loginOverlay) {
+        closeLoginBtn.addEventListener('click', () => {
+            loginOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // UI Setup: Auto-check session on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const userStr = localStorage.getItem('finpulse_user');
+        if (userStr) setupLogoutUI(JSON.parse(userStr));
+    });
 
-        // Reset Views to default (Login section visible)
-        loginSection.classList.remove('hidden');
-        signupSection.classList.add('hidden');
-        phoneSection.classList.add('hidden');
-
-        // Reset Phone views
-        phoneAuthForm.classList.remove('hidden');
-        otpVerifyForm.classList.add('hidden');
-
-        tabLogin.classList.add('active');
-        tabSignup.classList.remove('active');
+    const setupLogoutUI = (userData) => {
+        if (!loginBtn) return;
+        loginBtn.innerHTML = `<i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Logout (${userData.role})`;
         if (window.lucide) window.lucide.createIcons();
+        
+        // Remove old open-modal listener by cloning
+        const newLoginBtn = loginBtn.cloneNode(true);
+        loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
+        
+        newLoginBtn.addEventListener('click', async () => {
+            try {
+               await fetch("/api/auth/logout", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email: userData.email })
+               });
+            } catch(e) { console.error("Logout API failed, but clearing local cache", e) }
+
+            localStorage.removeItem('finpulse_user');
+            alert(`You have been securely logged out. This action was logged in MongoDB.`);
+            window.location.reload();
+        });
     };
 
-    if (closeAuthModal) closeAuthModal.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === authModal) closeModal();
-    });
-
-    // Tab Switching
-    if (tabLogin) tabLogin.addEventListener('click', () => {
-        tabLogin.classList.add('active');
-        tabSignup.classList.remove('active');
-        loginSection.classList.remove('hidden');
-        signupSection.classList.add('hidden');
-        phoneSection.classList.add('hidden');
-    });
-
-    if (tabSignup) tabSignup.addEventListener('click', () => {
-        tabSignup.classList.add('active');
-        tabLogin.classList.remove('active');
-        signupSection.classList.remove('hidden');
-        loginSection.classList.add('hidden');
-        phoneSection.classList.add('hidden');
-    });
-
-    // Phone View Switch
-    if (phoneLoginTrigger) phoneLoginTrigger.addEventListener('click', () => {
-        loginSection.classList.add('hidden');
-        phoneSection.classList.remove('hidden');
-    });
-
-    if (backToLogin) backToLogin.addEventListener('click', () => {
-        phoneSection.classList.add('hidden');
-        loginSection.classList.remove('hidden');
-        phoneAuthForm.classList.remove('hidden');
-        otpVerifyForm.classList.add('hidden');
-    });
-
-    // UI Updates
-    const updateUIForLoggedInUser = (user) => {
-        if (loginBtn) loginBtn.classList.add('hidden');
-        if (userProfile) {
-            userProfile.classList.remove('hidden');
-            userNameDisplay.textContent = user.displayName || user.phoneNumber || user.email.split('@')[0];
-        }
-        if (window.lucide) window.lucide.createIcons();
+    const finishLogin = (data) => {
+        localStorage.setItem('finpulse_user', JSON.stringify(data));
+        loginOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+        alert(`Welcome, ${data.role === 'admin' ? 'Admin' : 'Client'}! Your login has been recorded in our MongoDB database.`);
+        setupLogoutUI(data);
     };
 
-    const handleLogoutUI = () => {
-        if (loginBtn) loginBtn.classList.remove('hidden');
-        if (userProfile) userProfile.classList.add('hidden');
-        if (window.lucide) window.lucide.createIcons();
-    };
+    // Inject Admin / Client Role Option & Form Logic
+    if (exactLoginForm) {
+        
+        // Inject the 2 Options for login
+        const toggleHtml = `
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem; justify-content: center; background: rgba(255,255,255,0.05); padding: 0.5rem; border-radius: 8px;">
+                <label style="cursor:pointer; display:flex; align-items:center; gap: 0.5rem; font-weight: 500;">
+                    <input type="radio" name="role" value="client" checked> Client Login
+                </label>
+                <label style="cursor:pointer; display:flex; align-items:center; gap: 0.5rem; font-weight: 500; margin-left: 1rem;">
+                    <input type="radio" name="role" value="admin"> Admin Login
+                </label>
+            </div>
+        `;
+        const forgotPwdRow = exactLoginForm.querySelector('.forgot-pwd-row');
+        if (forgotPwdRow) forgotPwdRow.insertAdjacentHTML('beforebegin', toggleHtml);
 
-    // Firebase Listeners ---
+        // Sign Up Toggle Logic
+        const signupPromptObj = document.querySelector('.signup-prompt a');
+        if (signupPromptObj) {
+            signupPromptObj.addEventListener('click', (e) => {
+                e.preventDefault();
+                isSignupMode = !isSignupMode;
+                const title = document.querySelector('.login-card-title');
+                const subtitle = document.querySelector('.login-card-subtitle');
+                const submitBtn = exactLoginForm.querySelector('button[type="submit"]');
+                const roleToggleDiv = exactLoginForm.querySelector('input[name="role"]').closest('div');
 
-    // Auth state observer
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            updateUIForLoggedInUser(user);
-            closeModal();
-        } else {
-            handleLogoutUI();
-        }
-    });
-
-    // Email Login
-    document.getElementById('email-login-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        auth.signInWithEmailAndPassword(email, password)
-            .catch(error => alert(error.message));
-    });
-
-    // Email Signup
-    document.getElementById('email-signup-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('signup-email').value;
-        const password = document.getElementById('signup-password').value;
-        const name = document.getElementById('signup-name').value;
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                return result.user.updateProfile({ displayName: name });
-            })
-            .catch(error => alert(error.message));
-    });
-
-    // Google Login
-    document.getElementById('google-login-btn')?.addEventListener('click', () => {
-        auth.signInWithPopup(googleProvider)
-            .catch(error => alert(error.message));
-    });
-
-    // Logout
-    if (logoutBtn) logoutBtn.addEventListener('click', () => {
-        auth.signOut();
-    });
-
-    // --- Phone Auth Logic ---
-    // Initialize reCAPTCHA - setting to 'normal' size so we can see it for debugging
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        'size': 'normal',
-        'callback': (response) => {
-            console.log("reCAPTCHA verified");
-        }
-    });
-
-    let confirmationResult = null;
-
-    phoneAuthForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const sendBtn = document.getElementById('send-otp-btn');
-        const numberInput = document.getElementById('phone-number').value;
-
-        // Normalize phone number: ensure it starts with +91 and has 10 digits
-        const phoneNumber = "+91" + numberInput.trim().slice(-10);
-
-        const appVerifier = window.recaptchaVerifier;
-
-        if (sendBtn) {
-            sendBtn.innerHTML = "Sending...";
-            sendBtn.disabled = true;
-        }
-
-        console.log("Starting phone auth for:", phoneNumber);
-
-        auth.signInWithPhoneNumber(phoneNumber, appVerifier)
-            .then((result) => {
-                console.log("SMS Sent successfully");
-                confirmationResult = result;
-                phoneAuthForm.classList.add('hidden');
-                otpVerifyForm.classList.remove('hidden');
-            }).catch((error) => {
-                console.error("Phone Auth Error:", error);
-                alert("Error: " + error.message);
-                if (sendBtn) {
-                    sendBtn.innerHTML = "Send OTP";
-                    sendBtn.disabled = false;
+                if (isSignupMode) {
+                    title.textContent = "Create an Account";
+                    subtitle.textContent = "Sign up to track your finances";
+                    submitBtn.textContent = "Register Now";
+                    roleToggleDiv.style.opacity = '0.3'; // Prevent admin creation during signup loosely visually
+                    signupPromptObj.textContent = "Log In";
+                    signupPromptObj.parentElement.firstChild.textContent = "Already have an account? ";
+                    
+                    if (!document.getElementById('signup-name')) {
+                        const nameField = document.createElement('div');
+                        nameField.className = 'login-form-group';
+                        nameField.id = 'name-field-group';
+                        nameField.innerHTML = `
+                            <label>Full Name</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="user" class="input-icon"></i>
+                                <input type="text" id="signup-name" placeholder="John Doe" required style="width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: white;">
+                            </div>
+                        `;
+                        exactLoginForm.insertBefore(nameField, exactLoginForm.firstChild);
+                        if (window.lucide) window.lucide.createIcons();
+                    } else {
+                        document.getElementById('name-field-group').style.display = 'block';
+                        document.getElementById('signup-name').setAttribute('required', 'true');
+                    }
+                } else {
+                    title.textContent = "Welcome back";
+                    subtitle.textContent = "Sign in to access your dashboard";
+                    submitBtn.textContent = "Sign In";
+                    roleToggleDiv.style.opacity = '1';
+                    signupPromptObj.textContent = "Sign up";
+                    signupPromptObj.parentElement.firstChild.textContent = "Don't have an account? ";
+                    if (document.getElementById('name-field-group')) {
+                        document.getElementById('name-field-group').style.display = 'none';
+                        document.getElementById('signup-name').removeAttribute('required');
+                    }
                 }
-                if (window.grecaptcha) grecaptcha.reset();
             });
-    });
-
-    otpVerifyForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const code = document.getElementById('otp-code').value;
-        if (confirmationResult) {
-            confirmationResult.confirm(code)
-                .then((result) => {
-                    updateUIForLoggedInUser(result.user);
-                    closeModal();
-                })
-                .catch(error => {
-                    console.error("Verification Error:", error);
-                    alert("Invalid Code: " + error.message);
-                });
         }
-    });
+
+        // Form Submit Handler
+        exactLoginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get button to simulate loading State
+            const btn = exactLoginForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Connecting...';
+            btn.disabled = true;
+
+            const email = exactLoginForm.querySelector('input[type="email"]').value;
+            const password = exactLoginForm.querySelector('input[type="password"]').value;
+            
+            const roleRadio = exactLoginForm.querySelector('input[name="role"]:checked');
+            const roleMode = roleRadio ? roleRadio.value : 'client';
+
+            try {
+                if (isSignupMode) {
+                    const name = document.getElementById('signup-name').value;
+                    const res = await fetch("/api/auth/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password, name })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.message);
+                    
+                    finishLogin(data);
+                } else {
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.message);
+                    
+                    if (roleMode === 'admin' && data.role !== 'admin') {
+                        throw new Error("Unauthorized. This account is not an administrator.");
+                    }
+                    
+                    finishLogin(data);
+                }
+            } catch (error) {
+                alert("Auth Error: " + error.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    }
 
 })();

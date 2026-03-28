@@ -15,6 +15,14 @@
         rel="stylesheet">
     <link href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <!-- Google Analytics Tracker -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V45JN6JQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7V45JN6JQE');
+    </script>
 </head>
 
 <body>
@@ -25,7 +33,7 @@
     <header id="header" class="navbar">
         <div class="container nav-content">
             <a href="index.html" class="logo" style="text-decoration: none;">
-                <div class="logo-box">F</div>
+                <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                 <span class="logo-text">Fin<span class="text-primary">Pulse</span></span>
             </a>
             <nav class="nav-links">
@@ -41,9 +49,9 @@
                 <a href="#contact" class="btn btn-primary nav-cta">Book Consultation</a>
             </div>
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
                 <i data-lucide="menu"></i>
             </button>
-        </div>
     </header>
 
     <!-- Blogs Section -->
@@ -94,7 +102,7 @@
                                 <select id="service" required>
                                     <option value="">Select a service</option>
                                     <option value="tax">Tax Planning</option>
-                                    <option value="audit">Audit & Assurance</option>
+                                    <option value="bookkeeping">Accounting & Bookkeeping</option>
                                     <option value="advisory">Investment Advisory</option>
                                 </select>
                             </div>
@@ -115,7 +123,7 @@
                         <div class="info-items">
                             <div class="info-item">
                                 <div class="info-icon"><i data-lucide="phone"></i></div>
-                                <span>+91 555-123-4567</span>
+                                <span>+91 9509899680</span>
                             </div>
                             <div class="info-item">
                                 <div class="info-icon"><i data-lucide="mail"></i></div>
@@ -123,7 +131,7 @@
                             </div>
                             <div class="info-item">
                                 <div class="info-icon"><i data-lucide="map-pin"></i></div>
-                                <span>123 Financial District, Suite 400, Metropolis</span>
+                                <span>Sector 24 DLF phase 1 gurgaon 122001</span>
                             </div>
                             <div class="info-item">
                                 <div class="info-icon"><i data-lucide="clock"></i></div>
@@ -148,7 +156,7 @@
             <p class="cta-subtext">Schedule a free consultation with one of our experts today. We'll review your setup and show you how FinPulse can help.</p>
             <div class="cta-actions">
                 <button class="btn btn-primary" id="bookConsultationCta">Book Free Consultation <i data-lucide="arrow-right"></i></button>
-                <a href="tel:+915551234567" class="btn btn-secondary"><i data-lucide="phone"></i> Call +91 555-123-4567</a>
+                <a href="tel:+919509899680" class="btn btn-secondary"><i data-lucide="phone"></i> Call +91 9509899680</a>
             </div>
         </div>
     </section>
@@ -160,7 +168,7 @@
                 <!-- Brand Col -->
                 <div class="footer-col brand-col">
                     <a href="index.html" class="logo" style="text-decoration: none;">
-                        <div class="logo-box">F</div>
+                        <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                         <span class="logo-text" style="color: white; font-weight: 700;">FinPulse</span>
                     </a>
                     <p class="footer-desc">Expert Chartered Accountant services tailored for modern businesses. Your trusted financial partner.</p>
@@ -171,7 +179,7 @@
                     <h4>Services</h4>
                     <ul class="footer-links">
                         <li><a href="services.html">Tax Planning</a></li>
-                        <li><a href="services.html">Audit & Assurance</a></li>
+                        <li><a href="services.html">Accounting & Bookkeeping</a></li>
                         <li><a href="services.html">Investment Advisory</a></li>
                         <li><a href="services.html">Business Consulting</a></li>
                         <li><a href="blogs.html">Blogs</a></li>
@@ -192,8 +200,8 @@
                 <div class="footer-col contact-col">
                     <h4>Contact</h4>
                     <ul class="footer-contact-info">
-                        <li><i data-lucide="map-pin"></i> 123 Financial District, Suite 400, Metropolis</li>
-                        <li><i data-lucide="phone"></i> +91 555-123-4567</li>
+                        <li><i data-lucide="map-pin"></i> Sector 24 DLF phase 1 gurgaon 122001</li>
+                        <li><i data-lucide="phone"></i> +91 9509899680</li>
                         <li><i data-lucide="mail"></i> consult@finpulse.com</li>
                     </ul>
                 </div>
@@ -211,7 +219,7 @@
             <!-- Left Branding Side -->
             <div class="login-brand-side">
                 <a href="index.html" class="logo" style="text-decoration: none;">
-                    <div class="logo-box">F</div>
+                    <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                     <span class="logo-text">FinPulse</span>
                 </a>
                 
@@ -274,6 +282,7 @@
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="scripts/auth.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

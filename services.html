@@ -15,292 +15,351 @@
         rel="stylesheet">
     <link href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <!-- Google Analytics Tracker -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7V45JN6JQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7V45JN6JQE');
+    </script>
 </head>
 
 <body>
-<body>
-    <!-- Main Content -->
 
-    <!-- Navigation -->
-    <header id="header" class="navbar">
-        <div class="container nav-content">
-            <a href="index.html" class="logo" style="text-decoration: none;">
-                <div class="logo-box">F</div>
-                <span class="logo-text">Fin<span class="text-primary">Pulse</span></span>
-            </a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="tools.html">Tools</a>
-                <a href="about.html">About</a>
-                <a href="testimonials.html">Testimonials</a>
-                <a href="blogs.html">Blogs</a>
-            </nav>
-            <div class="nav-actions">
-                <button id="loginBtn" class="btn btn-ghost nav-login">Login</button>
-                <a href="#contact" class="btn btn-primary nav-cta">Book Consultation</a>
-            </div>
-            <button class="mobile-menu-btn" aria-label="Toggle Menu">
-                <i data-lucide="menu"></i>
-            </button>
-        </div>
-    </header>
+    <body>
+        <!-- Main Content -->
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header text-center fade-in">
-                <span class="subtitle">OUR EXPERTISE</span>
-                <h2>Comprehensive CA Services</h2>
-                <p>We provide a full spectrum of financial and regulatory services designed to support businesses of all sizes.</p>
-            </div>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card glass-card fade-in">
-                    <div class="service-icon"><i data-lucide="calculator"></i></div>
-                    <h3>Tax Planning & Filing</h3>
-                    <p>Accurate, timely tax planning and filing for individuals and corporations. Minimize your liability legally and efficiently.</p>
-                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
-                </div>
-                <!-- Service 2 -->
-                <div class="service-card glass-card fade-in">
-                    <div class="service-icon"><i data-lucide="file-check"></i></div>
-                    <h3>Audit & Assurance</h3>
-                    <p>Thorough and independent audits that provide stakeholders with confidence in your financial statements.</p>
-                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
-                </div>
-                <!-- Service 3 -->
-                <div class="service-card glass-card fade-in">
-                    <div class="service-icon"><i data-lucide="pie-chart"></i></div>
-                    <h3>Investment Advisory</h3>
-                    <p>Strategic financial consulting to help you navigate investments, restructuring, and long-term planning.</p>
-                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
-                </div>
-                <!-- Service 4 -->
-                <div class="service-card glass-card fade-in">
-                    <div class="service-icon"><i data-lucide="briefcase"></i></div>
-                    <h3>Business Consulting</h3>
-                    <p>End-to-end business advisory services including compliance, registration, and operational optimization.</p>
-                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact" style="background-color: var(--bg-light); padding: 5rem 0;">
-        <div class="container">
-            <div class="section-header text-center fade-in">
-                <h2>Book a <span class="text-primary">Free Consultation</span></h2>
-                <p>Tell us about your needs and our experts will get back to you within 24 hours.</p>
-            </div>
-            
-            <div class="contact-layout fade-in">
-                <!-- Left Form -->
-                <div class="contact-form-container glass-card">
-                    <h3>Fill in your details</h3>
-                    <form id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Full Name *</label>
-                                <input type="text" id="name" placeholder="John Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email *</label>
-                                <input type="email" id="email" placeholder="you@example.com" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" id="phone" placeholder="+91 98765 43210" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Service Needed *</label>
-                                <select id="service" required>
-                                    <option value="">Select a service</option>
-                                    <option value="tax">Tax Planning</option>
-                                    <option value="audit">Audit & Assurance</option>
-                                    <option value="advisory">Investment Advisory</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea id="message" rows="4" placeholder="Tell us about your requirements..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Request <i data-lucide="send"></i></button>
-                        <p id="formStatus" class="form-status"></p>
-                    </form>
-                </div>
-                
-                <!-- Right Info -->
-                <div class="contact-sidebar">
-                    <div class="contact-info-card glass-card">
-                        <h3>Contact Information</h3>
-                        <div class="info-items">
-                            <div class="info-item">
-                                <div class="info-icon"><i data-lucide="phone"></i></div>
-                                <span>+91 555-123-4567</span>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon"><i data-lucide="mail"></i></div>
-                                <span>consult@finpulse.com</span>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon"><i data-lucide="map-pin"></i></div>
-                                <span>123 Financial District, Suite 400, Metropolis</span>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon"><i data-lucide="clock"></i></div>
-                                <span>Mon-Fri: 9 AM - 6 PM IST</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="promo-card">
-                        <h4>🎯 Free First Consultation</h4>
-                        <p>Your first consultation is completely free. We'll review your financial situation and recommend the best path forward — no obligations.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container text-center fade-in">
-            <h2 class="cta-heading">Ready to elevate your financial strategy?</h2>
-            <p class="cta-subtext">Schedule a free consultation with one of our experts today. We'll review your setup and show you how FinPulse can help.</p>
-            <div class="cta-actions">
-                <button class="btn btn-primary" id="bookConsultationCta">Book Free Consultation <i data-lucide="arrow-right"></i></button>
-                <a href="tel:+915551234567" class="btn btn-secondary"><i data-lucide="phone"></i> Call +91 555-123-4567</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer Exact -->
-    <footer class="footer-exact">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Brand Col -->
-                <div class="footer-col brand-col">
-                    <a href="index.html" class="logo" style="text-decoration: none;">
-                        <div class="logo-box">F</div>
-                        <span class="logo-text" style="color: white; font-weight: 700;">FinPulse</span>
-                    </a>
-                    <p class="footer-desc">Expert Chartered Accountant services tailored for modern businesses. Your trusted financial partner.</p>
-                </div>
-                
-                <!-- Services Col -->
-                <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="services.html">Tax Planning</a></li>
-                        <li><a href="services.html">Audit & Assurance</a></li>
-                        <li><a href="services.html">Investment Advisory</a></li>
-                        <li><a href="services.html">Business Consulting</a></li>
-                        <li><a href="blogs.html">Blogs</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Tools Col -->
-                <div class="footer-col">
-                    <h4>Tools</h4>
-                    <ul class="footer-links">
-                        <li><a href="tools.html">Tax Calculator</a></li>
-                        <li><a href="tools.html">EMI Calculator</a></li>
-                        <li><a href="tools.html">Financial Health Check</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact Col -->
-                <div class="footer-col contact-col">
-                    <h4>Contact</h4>
-                    <ul class="footer-contact-info">
-                        <li><i data-lucide="map-pin"></i> 123 Financial District, Suite 400, Metropolis</li>
-                        <li><i data-lucide="phone"></i> +91 555-123-4567</li>
-                        <li><i data-lucide="mail"></i> consult@finpulse.com</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2026 FinPulse. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Lovable Exact Match Fullscreen Login Modal -->
-    <div id="loginOverlay" class="login-fullscreen-overlay hidden">
-        <div class="login-split-container">
-            <!-- Left Branding Side -->
-            <div class="login-brand-side">
+        <!-- Navigation -->
+        <header id="header" class="navbar">
+            <div class="container nav-content">
                 <a href="index.html" class="logo" style="text-decoration: none;">
-                    <div class="logo-box">F</div>
-                    <span class="logo-text">FinPulse</span>
+                    <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                    <span class="logo-text">Fin<span class="text-primary">Pulse</span></span>
                 </a>
-                
-                <h1 class="login-headline">Your finances, <span class="text-primary">simplified.</span></h1>
-                <p class="login-subtext">Access expert CA services, interactive financial tools, and personalized insights — all in one place.</p>
-                
-                <ul class="login-bullets">
-                    <li><span class="bullet-dot"></span> Trusted by 2,500+ clients</li>
-                    <li><span class="bullet-dot"></span> 100% tax compliance</li>
-                    <li><span class="bullet-dot"></span> Secure & confidential</li>
-                </ul>
-            </div>
-            
-            <!-- Right Form Side -->
-            <div class="login-form-side">
-                <div class="login-card">
-                    <button id="closeLoginBtn" class="back-home-btn"><i data-lucide="arrow-left"></i> Back to home</button>
-                    
-                    <h2 class="login-card-title">Welcome back</h2>
-                    <p class="login-card-subtitle">Sign in to access your dashboard</p>
-                    
-                    <button class="btn btn-google">
-                        <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                        Continue with Google
-                    </button>
-                    
-                    <div class="login-divider">
-                        <span>or continue with email</span>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="tools.html">Tools</a>
+                    <a href="about.html">About</a>
+                    <a href="testimonials.html">Testimonials</a>
+                    <a href="blogs.html">Blogs</a>
+                </nav>
+                <div class="nav-actions">
+                    <button id="loginBtn" class="btn btn-ghost nav-login">Login</button>
+                    <a href="#contact" class="btn btn-primary nav-cta">Book Consultation</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+        <div class="logo">
+            <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 40px; object-fit: contain; mix-blend-mode: multiply; border-radius: 4px;">
+            <span>FinPulse</span>
+        </div>
+        </header>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header text-center fade-in">
+                    <span class="subtitle">OUR EXPERTISE</span>
+                    <h2>Comprehensive CA Services</h2>
+                    <p>We provide a full spectrum of financial and regulatory services designed to support businesses of
+                        all sizes.</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card glass-card fade-in">
+                        <div class="service-icon"><i data-lucide="calculator"></i></div>
+                        <h3>Tax Planning & Filing</h3>
+                        <p>Accurate, timely tax planning and filing for individuals and corporations. Minimize your
+                            liability legally and efficiently.</p>
+                        <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
                     </div>
-                    
-                    <form id="exact-login-form">
-                        <div class="login-form-group">
-                            <label>Email</label>
-                            <div class="input-with-icon">
-                                <i data-lucide="mail" class="input-icon"></i>
-                                <input type="email" placeholder="you@example.com" required>
+                    <!-- Service 2 -->
+                    <div class="service-card glass-card fade-in">
+                        <div class="service-icon"><i data-lucide="book-open"></i></div>
+                        <h3>Accounting & Bookkeeping</h3>
+                        <p>Comprehensive ledger maintenance, accurate bookkeeping, payroll processing, and financial
+                            reporting.</p>
+                        <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    <!-- Service 3 -->
+                    <div class="service-card glass-card fade-in">
+                        <div class="service-icon"><i data-lucide="pie-chart"></i></div>
+                        <h3>Investment Advisory</h3>
+                        <p>Strategic financial consulting to help you navigate investments, restructuring, and long-term
+                            planning.</p>
+                        <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    <!-- Service 4 -->
+                    <div class="service-card glass-card fade-in">
+                        <div class="service-icon"><i data-lucide="briefcase"></i></div>
+                        <h3>Business Consulting</h3>
+                        <p>End-to-end business advisory services including compliance, registration, and operational
+                            optimization.</p>
+                        <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+
+                <!-- Service 5 -->
+                <div class="service-card glass-card fade-in">
+                    <div class="service-icon"><i data-lucide="scale"></i></div>
+                    <h3>Company Law & MCA</h3>
+                    <p>Complete statutory compliance including Annual Returns, KYC, register maintenance, and handling MCA notices.</p>
+                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card glass-card fade-in">
+                    <div class="service-icon"><i data-lucide="file-search"></i></div>
+                    <h3>GST Litigation Handling</h3>
+                    <p>Expert assistance with departmental notices, ITC reconciliation, refund applications, E-way bills, and registration management.</p>
+                    <a href="#contact" class="learn-more">Learn more <i data-lucide="arrow-right"></i></a>
+                </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact" style="background-color: var(--bg-light); padding: 5rem 0;">
+            <div class="container">
+                <div class="section-header text-center fade-in">
+                    <h2>Book a <span class="text-primary">Free Consultation</span></h2>
+                    <p>Tell us about your needs and our experts will get back to you within 24 hours.</p>
+                </div>
+
+                <div class="contact-layout fade-in">
+                    <!-- Left Form -->
+                    <div class="contact-form-container glass-card">
+                        <h3>Fill in your details</h3>
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" id="name" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" id="email" placeholder="you@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="phone" placeholder="+91 98765 43210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Service Needed *</label>
+                                    <select id="service" required>
+                                        <option value="">Select a service</option>
+                                        <option value="tax">Tax Planning</option>
+                                        <option value="bookkeeping">Accounting & Bookkeeping</option>
+                                        <option value="advisory">Investment Advisory</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea id="message" rows="4"
+                                    placeholder="Tell us about your requirements..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Request <i
+                                    data-lucide="send"></i></button>
+                            <p id="formStatus" class="form-status"></p>
+                        </form>
+                    </div>
+
+                    <!-- Right Info -->
+                    <div class="contact-sidebar">
+                        <div class="contact-info-card glass-card">
+                            <h3>Contact Information</h3>
+                            <div class="info-items">
+                                <div class="info-item">
+                                    <div class="info-icon"><i data-lucide="phone"></i></div>
+                                    <span>+91 9509899680</span>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i data-lucide="mail"></i></div>
+                                    <span>consult@finpulse.com</span>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i data-lucide="map-pin"></i></div>
+                                    <span>Sector 24 DLF phase 1 gurgaon 122001</span>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i data-lucide="clock"></i></div>
+                                    <span>Mon-Fri: 9 AM - 6 PM IST</span>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="login-form-group">
-                            <label>Password</label>
-                            <div class="input-with-icon">
-                                <i data-lucide="lock" class="input-icon"></i>
-                                <input type="password" placeholder="••••••••" required>
-                                <i data-lucide="eye" class="input-action-icon"></i>
+
+                        <div class="promo-card">
+                            <h4>🎯 Free First Consultation</h4>
+                            <p>Your first consultation is completely free. We'll review your financial situation and
+                                recommend the best path forward — no obligations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container text-center fade-in">
+                <h2 class="cta-heading">Ready to elevate your financial strategy?</h2>
+                <p class="cta-subtext">Schedule a free consultation with one of our experts today. We'll review your
+                    setup and show you how FinPulse can help.</p>
+                <div class="cta-actions">
+                    <button class="btn btn-primary" id="bookConsultationCta">Book Free Consultation <i
+                            data-lucide="arrow-right"></i></button>
+                    <a href="tel:+919509899680" class="btn btn-secondary"><i data-lucide="phone"></i> Call +91
+                        9509899680</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Exact -->
+        <footer class="footer-exact">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Brand Col -->
+                    <div class="footer-col brand-col">
+                        <a href="index.html" class="logo" style="text-decoration: none;">
+                            <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <span class="logo-text" style="color: white; font-weight: 700;">FinPulse</span>
+                        </a>
+                        <p class="footer-desc">Expert Chartered Accountant services tailored for modern businesses. Your
+                            trusted financial partner.</p>
+                    </div>
+
+                    <!-- Services Col -->
+                    <div class="footer-col">
+                        <h4>Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="services.html">Tax Planning</a></li>
+                            <li><a href="services.html">Accounting & Bookkeeping</a></li>
+                            <li><a href="services.html">Investment Advisory</a></li>
+                            <li><a href="services.html">Business Consulting</a></li>
+                            <li><a href="blogs.html">Blogs</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tools Col -->
+                    <div class="footer-col">
+                        <h4>Tools</h4>
+                        <ul class="footer-links">
+                            <li><a href="tools.html">Tax Calculator</a></li>
+                            <li><a href="tools.html">EMI Calculator</a></li>
+                            <li><a href="tools.html">Financial Health Check</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Col -->
+                    <div class="footer-col contact-col">
+                        <h4>Contact</h4>
+                        <ul class="footer-contact-info">
+                            <li><i data-lucide="map-pin"></i> Sector 24 DLF phase 1 gurgaon 122001</li>
+                            <li><i data-lucide="phone"></i> +91 9509899680</li>
+                            <li><i data-lucide="mail"></i> consult@finpulse.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 FinPulse. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Lovable Exact Match Fullscreen Login Modal -->
+        <div id="loginOverlay" class="login-fullscreen-overlay hidden">
+            <div class="login-split-container">
+                <!-- Left Branding Side -->
+                <div class="login-brand-side">
+                    <a href="index.html" class="logo" style="text-decoration: none;">
+                        <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                        <span class="logo-text">FinPulse</span>
+                    </a>
+
+                    <h1 class="login-headline">Your finances, <span class="text-primary">simplified.</span></h1>
+                    <p class="login-subtext">Access expert CA services, interactive financial tools, and personalized
+                        insights — all in one place.</p>
+
+                    <ul class="login-bullets">
+                        <li><span class="bullet-dot"></span> Trusted by 2,500+ clients</li>
+                        <li><span class="bullet-dot"></span> 100% tax compliance</li>
+                        <li><span class="bullet-dot"></span> Secure & confidential</li>
+                    </ul>
+                </div>
+
+                <!-- Right Form Side -->
+                <div class="login-form-side">
+                    <div class="login-card">
+                        <button id="closeLoginBtn" class="back-home-btn"><i data-lucide="arrow-left"></i> Back to
+                            home</button>
+
+                        <h2 class="login-card-title">Welcome back</h2>
+                        <p class="login-card-subtitle">Sign in to access your dashboard</p>
+
+                        <button class="btn btn-google">
+                            <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                    fill="#4285F4" />
+                                <path
+                                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                    fill="#34A853" />
+                                <path
+                                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                                    fill="#FBBC05" />
+                                <path
+                                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                    fill="#EA4335" />
+                            </svg>
+                            Continue with Google
+                        </button>
+
+                        <div class="login-divider">
+                            <span>or continue with email</span>
+                        </div>
+
+                        <form id="exact-login-form">
+                            <div class="login-form-group">
+                                <label>Email</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="mail" class="input-icon"></i>
+                                    <input type="email" placeholder="you@example.com" required>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="forgot-pwd-row">
-                            <a href="#" class="forgot-pwd-link">Forgot password?</a>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-block" style="padding: 1rem;">Sign In</button>
-                    </form>
-                    
-                    <p class="signup-prompt">Don't have an account? <a href="#">Sign up</a></p>
+
+                            <div class="login-form-group">
+                                <label>Password</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="lock" class="input-icon"></i>
+                                    <input type="password" placeholder="••••••••" required>
+                                    <i data-lucide="eye" class="input-action-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="forgot-pwd-row">
+                                <a href="#" class="forgot-pwd-link">Forgot password?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" style="padding: 1rem;">Sign
+                                In</button>
+                        </form>
+
+                        <p class="signup-prompt">Don't have an account? <a href="#">Sign up</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="scripts/auth.js"></script>
     <script src="scripts/main.js"></script>
-</body>
+    </body>
+
 </html>

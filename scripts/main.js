@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 message: document.getElementById('message').value
             };
 
-            fetch("https://finpulse-backend-3tz1.onrender.com/contact", {
+            fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
