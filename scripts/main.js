@@ -15,8 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('formStatus');
 
     // --- Sticky Header ---
+    const isSubpage = !document.querySelector('.hero');
+    if (isSubpage) {
+        header.classList.add('scrolled');
+    }
+    
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
+        if (window.scrollY > 20 || isSubpage) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');

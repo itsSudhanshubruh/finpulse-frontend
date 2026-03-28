@@ -46,44 +46,67 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <div class="trust-badge">Trusted Financial Partners</div>
-                    <h1>Precision in Every Number. <span class="text-primary">Peace of Mind</span> for You.</h1>
-                    <p>Expert Chartered Accountant services tailored to optimize your tax strategy, ensure compliance, and drive financial growth for your business.</p>
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary">Get Started Now <i data-lucide="arrow-right"></i></a>
-                        <a href="services.html" class="btn btn-outline">Explore Services</a>
+    <!-- Dashboard Preview Section -->
+    <section id="about" class="dashboard-preview">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="subtitle">DASHBOARD PREVIEW</span>
+                <h2>Data-Driven Financial Insights</h2>
+                <p>Our analytics dashboard provides real-time visibility into your financial health with actionable KPIs.</p>
+            </div>
+            
+            <div class="stats-grid fade-in">
+                <div class="stat-card glass-card">
+                    <div class="stat-header">
+                        <i data-lucide="dollar-sign"></i>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                    <div class="stat-value">₹24.5L</div>
+                    <div class="stat-label">Total Savings</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-header">
+                        <i data-lucide="trending-up"></i>
+                        <span class="stat-change positive">+4.2%</span>
+                    </div>
+                    <div class="stat-value">23.8%</div>
+                    <div class="stat-label">Growth Rate</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-header">
+                        <i data-lucide="bar-chart-3"></i>
+                        <span class="stat-change positive">+18.3%</span>
+                    </div>
+                    <div class="stat-value">₹8.2L</div>
+                    <div class="stat-label">Tax Optimized</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-header">
+                        <i data-lucide="users"></i>
+                        <span class="stat-change positive">+6.1%</span>
+                    </div>
+                    <div class="stat-value">2,847</div>
+                    <div class="stat-label">Active Clients</div>
+                </div>
+            </div>
+
+            <div class="chart-container glass-card fade-in">
+                <div class="chart-header">
+                    <h3>Revenue & Savings Trend</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="dot revenue"></span> Revenue</span>
+                        <span class="legend-item"><span class="dot savings"></span> Savings</span>
                     </div>
                 </div>
-                <div class="hero-visual fade-in">
-                    <div class="kpi-stack">
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="trending-up"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">98%</span>
-                                <span class="kpi-label">Client Retention</span>
-                            </div>
-                        </div>
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="shield-check"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">100%</span>
-                                <span class="kpi-label">Tax Compliance</span>
-                            </div>
-                        </div>
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="users"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">2,500+</span>
-                                <span class="kpi-label">Clients Served</span>
-                            </div>
-                        </div>
+                <div class="chart-placeholder">
+                    <!-- Simple SVG Chart for Visual Effect -->
+                    <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+                        <path d="M0,150 Q100,120 200,140 T400,80 T600,100 T800,40" fill="none" stroke="var(--primary)" stroke-width="3" />
+                        <path d="M0,180 Q100,160 200,170 T400,130 T600,140 T800,90" fill="none" stroke="var(--accent)" stroke-width="3" />
+                    </svg>
+                    <div class="chart-labels">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
                     </div>
-                    <div class="hero-glow"></div>
                 </div>
             </div>
         </div>

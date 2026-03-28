@@ -46,44 +46,148 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <div class="trust-badge">Trusted Financial Partners</div>
-                    <h1>Precision in Every Number. <span class="text-primary">Peace of Mind</span> for You.</h1>
-                    <p>Expert Chartered Accountant services tailored to optimize your tax strategy, ensure compliance, and drive financial growth for your business.</p>
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary">Get Started Now <i data-lucide="arrow-right"></i></a>
-                        <a href="services.html" class="btn btn-outline">Explore Services</a>
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <div class="tools-layout">
+                <div class="tools-sidebar fade-in">
+                    <div class="tool-list-item active">
+                        <div class="tool-icon-small"><i data-lucide="calculator"></i></div>
+                        <div class="tool-text">
+                            <h3>Tax Calculator</h3>
+                            <p>Estimate your income tax liability across different regimes instantly.</p>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow"></i>
+                    </div>
+                    <div class="tool-list-item">
+                        <div class="tool-icon-small"><i data-lucide="percent"></i></div>
+                        <div class="tool-text">
+                            <h3>EMI Calculator</h3>
+                            <p>Plan your loan repayments with precise EMI breakdowns.</p>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow"></i>
+                    </div>
+                    <div class="tool-list-item">
+                        <div class="tool-icon-small"><i data-lucide="heart-pulse"></i></div>
+                        <div class="tool-text">
+                            <h3>Financial Health Check</h3>
+                            <p>Get a comprehensive score of your financial wellness.</p>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow"></i>
                     </div>
                 </div>
-                <div class="hero-visual fade-in">
-                    <div class="kpi-stack">
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="trending-up"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">98%</span>
-                                <span class="kpi-label">Client Retention</span>
+                
+                <div class="tool-main-content glass-card fade-in">
+                    <!-- Tax Calculator UI -->
+                    <div class="tool-ui-section active" id="ui-tax">
+                        <h2>Tax Calculator</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem;">Estimate your income tax liability across different regimes instantly.</p>
+                        <div class="input-group">
+                            <label>Annual Income (₹)</label>
+                            <div class="range-container">
+                                <input type="range" id="incomeSlider" min="0" max="5000000" step="50000" value="1000000">
+                                <div class="slider-labels">
+                                    <span>₹0</span>
+                                    <span id="incomeDisplay" style="font-weight: 700; color: var(--primary);">₹10,00,000</span>
+                                    <span>₹50L+</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="shield-check"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">100%</span>
-                                <span class="kpi-label">Tax Compliance</span>
+                        
+                        <div class="regime-toggle">
+                            <button class="toggle-btn active" data-regime="new">New Regime</button>
+                            <button class="toggle-btn" data-regime="old">Old Regime</button>
+                        </div>
+
+                        <div class="tax-result-card" style="background: rgba(46, 204, 113, 0.08); border: 1px solid rgba(46, 204, 113, 0.2); padding: 2rem; border-radius: 12px; text-align: center; margin-top: 2rem;">
+                            <span class="result-label" style="display: block; color: var(--text-muted); margin-bottom: 0.5rem;">Estimated Tax</span>
+                            <div class="result-value" id="taxResultValue" style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">₹50,000</div>
+                        </div>
+                    </div>
+
+                    <!-- EMI Calculator UI -->
+                    <div class="tool-ui-section" id="ui-emi" style="display: none;">
+                        <h2>EMI Calculator</h2>
+                        <div class="input-group">
+                            <label>Loan Amount (₹)</label>
+                            <div class="range-container">
+                                <input type="range" id="emiLoanAmount" min="100000" max="10000000" step="100000" value="2000000">
+                                <div class="slider-labels" style="justify-content: flex-end;">
+                                    <span id="loanAmountDisplay" style="font-weight: 700;">₹20,00,000</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="kpi-card glass-card">
-                            <div class="kpi-icon"><i data-lucide="users"></i></div>
-                            <div class="kpi-info">
-                                <span class="kpi-value">2,500+</span>
-                                <span class="kpi-label">Clients Served</span>
+                        <div class="input-group" style="margin-top: 1.5rem;">
+                            <label>Interest Rate (%)</label>
+                            <div class="range-container">
+                                <input type="range" id="emiInterestRate" min="5" max="20" step="0.1" value="8.5">
+                                <div class="slider-labels" style="justify-content: flex-end;">
+                                    <span id="interestRateDisplay" style="font-weight: 700;">8.5%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top: 1.5rem;">
+                            <label>Tenure (Years)</label>
+                            <div class="range-container">
+                                <input type="range" id="emiTenure" min="1" max="30" step="1" value="20">
+                                <div class="slider-labels" style="justify-content: flex-end;">
+                                    <span id="tenureDisplay" style="font-weight: 700;">20 years</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="emi-result-cards" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2.5rem;">
+                            <div class="result-box" style="background: rgba(46, 204, 113, 0.08); padding: 1.5rem 1rem; border-radius: 12px; text-align: center; border: 1px solid rgba(46, 204, 113, 0.2);">
+                                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Monthly EMI</span>
+                                <strong id="emiMonthly" style="font-size: 1.4rem; color: var(--primary);">₹17,356</strong>
+                            </div>
+                            <div class="result-box" style="background: #f8fafc; border: 1px solid var(--border-light); padding: 1.5rem 1rem; border-radius: 12px; text-align: center;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Total Interest</span>
+                                <strong id="emiTotalInterest" style="font-size: 1.2rem; color: #1e3a8a;">₹21,65,552</strong>
+                            </div>
+                            <div class="result-box" style="background: #f8fafc; border: 1px solid var(--border-light); padding: 1.5rem 1rem; border-radius: 12px; text-align: center;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Total Payment</span>
+                                <strong id="emiTotalPayment" style="font-size: 1.2rem; color: #1e3a8a;">₹41,65,552</strong>
                             </div>
                         </div>
                     </div>
-                    <div class="hero-glow"></div>
+
+                    <!-- Financial Health Check UI -->
+                    <div class="tool-ui-section" id="ui-health" style="display: none;">
+                        <h2>Financial Health Check</h2>
+                        <div class="input-group">
+                            <label>Savings Rate</label>
+                            <div class="range-container">
+                                <input type="range" id="healthSavings" min="0" max="100" value="50">
+                                <div class="slider-labels" style="justify-content: flex-end;"><span id="savingsDisplay" style="font-weight: 700;">50%</span></div>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top: 1.5rem;">
+                            <label>Debt-to-Income</label>
+                            <div class="range-container">
+                                <input type="range" id="healthDebt" min="0" max="100" value="30">
+                                <div class="slider-labels" style="justify-content: flex-end;"><span id="debtDisplay" style="font-weight: 700;">30%</span></div>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top: 1.5rem;">
+                            <label>Insurance Coverage</label>
+                            <div class="range-container">
+                                <input type="range" id="healthInsurance" min="0" max="100" value="70">
+                                <div class="slider-labels" style="justify-content: flex-end;"><span id="insuranceDisplay" style="font-weight: 700;">70%</span></div>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top: 1.5rem;">
+                            <label>Investment Diversification</label>
+                            <div class="range-container">
+                                <input type="range" id="healthInvestment" min="0" max="100" value="40">
+                                <div class="slider-labels" style="justify-content: flex-end;"><span id="investmentDisplay" style="font-weight: 700;">40%</span></div>
+                            </div>
+                        </div>
+                        <div class="health-result-card" style="margin-top: 2rem; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); padding: 2rem; border-radius: 12px; text-align: center;">
+                            <span style="font-size: 0.95rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Health Score</span>
+                            <div id="healthScoreDisplay" style="font-size: 2.5rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;">57/100</div>
+                            <span id="healthScoreLabel" style="color: #f59e0b; font-weight: 600;">Good</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
