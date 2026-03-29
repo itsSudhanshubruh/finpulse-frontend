@@ -29,7 +29,25 @@
     // UI Setup: Auto-check session on load
     window.addEventListener('DOMContentLoaded', () => {
         const userStr = localStorage.getItem('finpulse_user');
-        if (userStr) setupLogoutUI(JSON.parse(userStr));
+        if (userStr) {
+            const userData = JSON.parse(userStr);
+            if (userData.role === 'admin') {
+                if (window.location.pathname.endsWith('admin.html') === false) {
+                     setupLogoutUI(userData); // Keep logout UI but they can go to /admin.html if they want
+                     const adminLinkBtn = document.createElement('a');
+                     adminLinkBtn.href = 'admin.html';
+                     adminLinkBtn.className = 'btn btn-primary nav-cta';
+                     adminLinkBtn.innerHTML = '<i data-lucide="layout-dashboard"></i> Dashboard';
+                     
+                     // Add next to original button
+                     if(loginBtn) {
+                         loginBtn.parentElement.appendChild(adminLinkBtn);
+                     }
+                }
+            } else {
+                setupLogoutUI(userData);
+            }
+        }
     });
 
     const setupLogoutUI = (userData) => {
@@ -60,8 +78,13 @@
         localStorage.setItem('finpulse_user', JSON.stringify(data));
         loginOverlay.classList.add('hidden');
         document.body.style.overflow = '';
-        alert(`Welcome, ${data.role === 'admin' ? 'Admin' : 'Client'}! Your login has been recorded in our MongoDB database.`);
-        setupLogoutUI(data);
+        
+        if (data.role === 'admin') {
+            window.location.href = 'admin.html';
+        } else {
+            // Reroute non-admin VIP Clients natively securely into dedicated space locally
+            window.location.href = 'client-dashboard.html';
+        }
     };
 
     // Inject Admin / Client Role Option & Form Logic
@@ -142,7 +165,9 @@
             btn.innerHTML = 'Connecting...';
             btn.disabled = true;
 
-            const email = exactLoginForm.querySelector('input[type="email"]').value;
+            // Target generic text selector securely locally
+            const identifierField = exactLoginForm.querySelector('input[type="text"]:not(#signup-name)') || exactLoginForm.querySelector('input[id="email"]');
+            const email = identifierField.value;
             const password = exactLoginForm.querySelector('input[type="password"]').value;
             
             const roleRadio = exactLoginForm.querySelector('input[name="role"]:checked');
@@ -171,6 +196,9 @@
                     
                     if (roleMode === 'admin' && data.role !== 'admin') {
                         throw new Error("Unauthorized. This account is not an administrator.");
+                    }
+                    if (roleMode === 'client' && data.role === 'admin') {
+                        throw new Error("This is an Administrator account. Please select the 'Admin Login' option.");
                     }
                     
                     finishLogin(data);

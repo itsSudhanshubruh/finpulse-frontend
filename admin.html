@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinPulse | Admin Dashboard</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .admin-sidebar {
+            width: 280px;
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-nav {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background-color: rgba(37, 99, 235, 0.1); 
+            color: #3b82f6; 
+        }
+
+        .admin-main {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .admin-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            margin: 0;
+            color: #0f172a;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .admin-content-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .admin-content-section.active {
+            display: block;
+        }
+
+        /* Form elements for blog */
+        .admin-form-group {
+            margin-bottom: 1.5rem;
+        }
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #475569;
+            font-weight: 500;
+        }
+        .admin-form-group input, .admin-form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        .admin-form-group input:focus, .admin-form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .admin-panel {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .activity-table th, .activity-table td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .activity-table th {
+            color: #64748b;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        .activity-table td {
+            color: #334155;
+        }
+        
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge-login { background: rgba(34, 197, 94, 0.1); color: #15803d; }
+        .badge-logout { background: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+        .badge-admin { background: rgba(168, 85, 247, 0.1); color: #7e22ce; }
+        .badge-client { background: rgba(59, 130, 246, 0.1); color: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
+                <img src="assets/finpulse_logo.jpg" alt="FinPulse Logo" style="height: 48px; width: 56px; object-fit: cover; border-radius: 8px;">
+                <span class="logo-text" style="color: #0f172a; font-size: 1.5rem; font-family: 'Outfit', sans-serif; font-weight: 700;">Fin<span style="color: #3b82f6;">Pulse</span></span>
+            </a>
+
+            <nav class="admin-nav">
+                <a href="#" data-target="dashboard" class="active"><i data-lucide="layout-dashboard"></i> Overview</a>
+                <a href="#" data-target="blogs"><i data-lucide="file-text"></i> Manage Blogs</a>
+                <a href="#" data-target="clients"><i data-lucide="users"></i> Manage Clients</a>
+                <a href="#" data-target="activities"><i data-lucide="activity"></i> Activities</a>
+            </nav>
+
+            <div style="margin-top: auto;">
+                <button id="adminLogoutBtn" class="btn btn-outline" style="width: 100%; justify-content: center;"><i data-lucide="log-out"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h2>Admin Dashboard</h2>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white; font-family: 'Outfit', sans-serif;">A</div>
+                    <span id="adminEmailDisplay" style="color: #334155; font-weight: 500;">admin@example.com</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-content-section active">
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h3>Total Clients</h3>
+                        <div class="value" id="statClients">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Admin Users</h3>
+                        <div class="value" id="statAdmins">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Published Blogs</h3>
+                        <div class="value" id="statBlogs">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blogs Section -->
+            <section id="blogs" class="admin-content-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.5rem; font-family: 'Outfit', sans-serif;">Manage Blogs</h3>
+                    <button class="btn btn-primary" id="showBlogFormBtn"><i data-lucide="plus"></i> New Blog</button>
+                </div>
+
+                <div id="blogFormContainer" class="admin-panel" style="display: none;">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Create New Blog</h4>
+                    <form id="createBlogForm">
+                        <div class="admin-form-group">
+                            <label>Blog Title</label>
+                            <input type="text" id="blogTitle" required placeholder="Enter compelling title">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Cover Image (Upload from Gallery)</label>
+                            <input type="file" id="blogImageFile" accept="image/*" style="padding: 0.5rem; cursor: pointer;">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Content (Supports basic formatting / YouTube embed codes securely)</label>
+                            <textarea id="blogContent" rows="10" required placeholder="Write your blog content here..."></textarea>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary" id="submitBlogBtn">Publish Blog <i data-lucide="send"></i></button>
+                            <button type="button" class="btn btn-outline" id="cancelBlogBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-panel">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Existing Blogs</h4>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Date Published</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogsTableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Manage Clients Section -->
+            <section id="clients" class="admin-content-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.5rem; font-family: 'Outfit', sans-serif;">Manage VIP Clients</h3>
+                    <button class="btn btn-primary" id="showClientFormBtn"><i data-lucide="user-plus"></i> Generate Client</button>
+                </div>
+
+                <div id="clientFormContainer" class="admin-panel" style="display: none;">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Mint New Client Account</h4>
+                    <form id="createClientForm">
+                        <div class="admin-form-group">
+                            <label>Client Full Name *</label>
+                            <input type="text" id="clientName" required placeholder="John Doe">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Client Email (Optional - For notifications)</label>
+                            <input type="email" id="clientEmail" placeholder="client@company.com">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Secure Initial Password *</label>
+                            <input type="text" id="clientPassword" required placeholder="Pass123! Verify locally">
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary">Issue Credentials <i data-lucide="key"></i></button>
+                            <button type="button" class="btn btn-outline" id="cancelClientBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-panel">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Active Client Portfolio</h4>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Client Name</th>
+                                <th>Secure Client ID</th>
+                                <th>Linked Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientsTableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Activities Section -->
+            <section id="activities" class="admin-content-section">
+                <div class="admin-panel">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Outfit', sans-serif;">Recent User Activities</h3>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>User Email</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
+    <script src="scripts/admin.js"></script>
+</body>
+</html>

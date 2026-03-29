@@ -1,1 +1,13 @@
+# Hosting Logs
 .vercel
+
+# Security
+backend/.env
+.env
+
+# Dependencies
+backend/node_modules/
+node_modules/
+
+# OS Files
+.DS_Store
